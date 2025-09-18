@@ -2,11 +2,14 @@ import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Calendar, User, Tag } from "lucide-react";
-import luxuryWedding from "@/assets/luxury-wedding.jpg";
-import luxuryOffice from "@/assets/luxury-office.jpg";
-import luxuryFestival from "@/assets/luxury-festival.jpg";
+import { AnimatedSection } from "@/components/AnimatedSection";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import blogLuxuryBarDesign from "@/assets/blog-luxury-bar-design.jpg";
+import blogEcoFriendlyDesign from "@/assets/blog-eco-friendly-design.jpg";
+import blogBiophilicFestival from "@/assets/blog-biophilic-festival.jpg";
 
 const Blog = () => {
+  useScrollAnimation();
   const blogPosts = [
     {
       id: 1,
@@ -14,7 +17,7 @@ const Blog = () => {
       title: "Top Luxury Event Trends in Australia 2025",
       excerpt: "Discover the latest trends shaping luxury events across Australia, from sustainable practices to immersive technology integration.",
       content: "As we move into 2025, the luxury event landscape in Australia is evolving with exciting new trends that prioritize both elegance and innovation...",
-      image: luxuryWedding,
+      image: blogLuxuryBarDesign,
       author: "AS Luxe Team",
       publishDate: "2025-01-15",
       category: "Trends",
@@ -27,7 +30,7 @@ const Blog = () => {
       title: "Eco-Friendly Interior Design for Hotels & Bars",
       excerpt: "Learn how to incorporate sustainable design elements while maintaining the luxury aesthetic your guests expect.",
       content: "Sustainability and luxury are no longer mutually exclusive. Today's discerning clients expect both environmental responsibility and premium aesthetics...",
-      image: luxuryOffice,
+      image: blogEcoFriendlyDesign,
       author: "AS Luxe Team",
       publishDate: "2025-01-10",
       category: "Sustainability",
@@ -40,7 +43,7 @@ const Blog = () => {
       title: "How to Elevate Your Festival or Celebration with Biophilic Design",
       excerpt: "Explore the power of biophilic design in creating memorable outdoor events that connect guests with nature while maintaining luxury standards.",
       content: "Biophilic design represents the intersection of nature and luxury, creating spaces that not only look stunning but also promote well-being...",
-      image: luxuryFestival,
+      image: blogBiophilicFestival,
       author: "AS Luxe Team",
       publishDate: "2025-01-05",
       category: "Design",
@@ -71,17 +74,23 @@ const Blog = () => {
         <meta name="description" content="Stay updated with the latest luxury interior design trends, event planning tips, and industry insights from AS Luxe Interiors & Events in Brisbane." />
         
         {/* Hero Section */}
-        <section className="py-20 bg-gradient-hero">
-          <div className="container mx-auto px-6 text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Our <span className="text-gradient-primary">Blog</span>
-              <br />
-              <span className="text-gradient-gold">& Insights</span>
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Stay updated with the latest trends, tips, and insights in luxury interior design 
-              and premium event planning from our expert team.
-            </p>
+        <section className="py-20 bg-gradient-hero relative overflow-hidden">
+          <div className="absolute inset-0">
+            <div className="absolute top-20 left-20 w-48 h-48 bg-primary/10 rounded-full blur-3xl animate-float"></div>
+            <div className="absolute bottom-20 right-20 w-64 h-64 bg-gold/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }}></div>
+          </div>
+          <div className="container mx-auto px-6 text-center relative z-10">
+            <AnimatedSection animation="fade">
+              <h1 className="text-4xl md:text-6xl font-bold mb-6">
+                Our <span className="text-gradient-primary">Blog</span>
+                <br />
+                <span className="text-gradient-gold">& Insights</span>
+              </h1>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+                Stay updated with the latest trends, tips, and insights in luxury interior design 
+                and premium event planning from our expert team.
+              </p>
+            </AnimatedSection>
           </div>
         </section>
 
@@ -94,21 +103,24 @@ const Blog = () => {
               <div className="lg:col-span-3">
                 <div className="space-y-12">
                   {blogPosts.map((post, index) => (
-                    <article key={post.id} className="card-luxury overflow-hidden hover-lift">
-                      <div className="grid md:grid-cols-2 gap-0">
-                        <div className="relative h-64 md:h-auto">
-                          <img 
-                            src={post.image} 
-                            alt={post.title}
-                            className="w-full h-full object-cover"
-                            loading={index === 0 ? "eager" : "lazy"}
-                          />
-                          <div className="absolute top-4 left-4">
-                            <span className="px-3 py-1 bg-primary/90 text-primary-foreground text-sm rounded-full backdrop-blur-sm">
-                              {post.category}
-                            </span>
+                    <AnimatedSection key={post.id} animation="scale" delay={index * 150}>
+                      <article className="card-luxury overflow-hidden hover-tilt group">
+                        <div className="grid md:grid-cols-2 gap-0">
+                          <div className="relative h-64 md:h-auto overflow-hidden">
+                            <img 
+                              src={post.image} 
+                              alt={post.title}
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                              loading={index === 0 ? "eager" : "lazy"}
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-gold/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div className="absolute top-4 left-4">
+                              <span className="px-3 py-1 bg-primary/90 text-primary-foreground text-sm rounded-full backdrop-blur-sm animate-float">
+                                {post.category}
+                              </span>
+                            </div>
                           </div>
-                        </div>
                         <div className="p-8">
                           <div className="flex items-center text-sm text-muted-foreground mb-4 space-x-4">
                             <div className="flex items-center">
@@ -153,8 +165,9 @@ const Blog = () => {
                             </Button>
                           </Link>
                         </div>
-                      </div>
-                    </article>
+                        </div>
+                      </article>
+                    </AnimatedSection>
                   ))}
                 </div>
               </div>

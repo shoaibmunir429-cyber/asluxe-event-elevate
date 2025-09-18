@@ -2,19 +2,22 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, CheckCircle, Sparkles, Calendar, Home, Wine, MapPin } from "lucide-react";
+import { AnimatedSection } from "@/components/AnimatedSection";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import servicesCorporateOffice from "@/assets/services-corporate-office.jpg";
+import servicesFineDining from "@/assets/services-fine-dining.jpg";
+import servicesOutdoorEvents from "@/assets/services-outdoor-events.jpg";
+import servicesLuxuryResidential from "@/assets/services-luxury-residential.jpg";
 import luxuryBar from "@/assets/luxury-bar.jpg";
-import luxuryWedding from "@/assets/luxury-wedding.jpg";
-import luxuryRestaurant from "@/assets/luxury-restaurant.jpg";
-import luxuryFestival from "@/assets/luxury-festival.jpg";
-import luxuryOffice from "@/assets/luxury-office.jpg";
 
 const Services = () => {
+  useScrollAnimation();
   const mainServices = [
     {
       icon: Calendar,
       title: "Customized Interior & Event Planning & Management",
       description: "Full-service planning and coordination for private, corporate, and luxury events — from concept to flawless execution.",
-      image: luxuryWedding,
+      image: servicesCorporateOffice,
       features: [
         "Concept development and design",
         "Comprehensive project management",
@@ -28,7 +31,7 @@ const Services = () => {
       icon: Sparkles,
       title: "Seasonal & Festive Styling",
       description: "Custom decor for holidays and special occasions, bringing warmth, elegance, and celebration into your space.",
-      image: luxuryFestival,
+      image: servicesOutdoorEvents,
       features: [
         "Holiday and seasonal decoration",
         "Custom festive themes",
@@ -56,7 +59,7 @@ const Services = () => {
       icon: Home,
       title: "Luxury Lifestyle",
       description: "Curated decor services that reflect refined taste and upscale living — ideal for clients seeking a touch of luxury in everyday life.",
-      image: luxuryOffice,
+      image: servicesLuxuryResidential,
       features: [
         "Residential interior styling",
         "Luxury home staging",
@@ -70,7 +73,7 @@ const Services = () => {
       icon: MapPin,
       title: "Destination Event Planning & Setup",
       description: "Expert planning and styling for events held outside your city or country — with seamless logistics and on-site execution.",
-      image: luxuryRestaurant,
+      image: servicesFineDining,
       features: [
         "International event coordination",
         "Destination wedding planning",
@@ -117,75 +120,96 @@ const Services = () => {
         <meta name="description" content="Explore AS Luxe's comprehensive luxury interior design and event planning services in Brisbane. From bar design to destination events, we create bespoke experiences." />
         
         {/* Hero Section */}
-        <section className="py-20 bg-gradient-hero">
-          <div className="container mx-auto px-6 text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Our <span className="text-gradient-primary">Premium</span>
-              <br />
-              <span className="text-gradient-gold">Services</span>
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-              From intimate gatherings to grand celebrations, commercial spaces to luxury homes, 
-              we offer comprehensive design and event solutions tailored to your unique vision.
-            </p>
-            <Link to="/contact">
-              <Button className="btn-luxury">
-                Get Your Custom Quote
-                <ArrowRight className="ml-2" size={20} />
-              </Button>
-            </Link>
+        <section className="py-20 bg-gradient-hero relative overflow-hidden">
+          <div className="absolute inset-0">
+            <div className="absolute top-20 left-20 w-48 h-48 bg-primary/10 rounded-full blur-3xl animate-float"></div>
+            <div className="absolute bottom-20 right-20 w-64 h-64 bg-gold/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }}></div>
+          </div>
+          <div className="container mx-auto px-6 text-center relative z-10">
+            <AnimatedSection animation="fade">
+              <h1 className="text-4xl md:text-6xl font-bold mb-6">
+                Our <span className="text-gradient-primary">Premium</span>
+                <br />
+                <span className="text-gradient-gold">Services</span>
+              </h1>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+                From intimate gatherings to grand celebrations, commercial spaces to luxury homes, 
+                we offer comprehensive design and event solutions tailored to your unique vision.
+              </p>
+              <Link to="/contact">
+                <Button className="btn-luxury hover-tilt">
+                  Get Your Custom Quote
+                  <ArrowRight className="ml-2" size={20} />
+                </Button>
+              </Link>
+            </AnimatedSection>
           </div>
         </section>
 
         {/* Main Services Section */}
-        <section className="py-20">
-          <div className="container mx-auto px-6">
+        <section className="py-20 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent"></div>
+          <div className="container mx-auto px-6 relative z-10">
             <div className="space-y-16">
               {mainServices.map((service, index) => (
-                <div key={index} className={`grid lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
-                  <div className={index % 2 === 1 ? 'lg:col-start-2' : ''}>
-                    <div className="flex items-center mb-6">
-                      <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center mr-4">
-                        <service.icon className="text-primary-foreground" size={24} />
-                      </div>
-                      <h2 className="text-3xl font-bold text-gradient-primary">{service.title}</h2>
-                    </div>
-                    <p className="text-lg text-muted-foreground mb-8">{service.description}</p>
-                    <div className="grid sm:grid-cols-2 gap-4 mb-8">
-                      {service.features.map((feature, idx) => (
-                        <div key={idx} className="flex items-center">
-                          <CheckCircle className="text-primary mr-3 flex-shrink-0" size={18} />
-                          <span className="text-sm">{feature}</span>
+                <AnimatedSection key={index} animation="fade" delay={index * 200}>
+                  <div className={`grid lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
+                    <div className={index % 2 === 1 ? 'lg:col-start-2' : ''}>
+                      <AnimatedSection animation="slide-left" delay={(index * 200) + 100}>
+                        <div className="flex items-center mb-6">
+                          <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center mr-4 animate-glow">
+                            <service.icon className="text-primary-foreground" size={24} />
+                          </div>
+                          <h2 className="text-3xl font-bold text-gradient-primary">{service.title}</h2>
                         </div>
-                      ))}
+                        <p className="text-lg text-muted-foreground mb-8">{service.description}</p>
+                        <div className="grid sm:grid-cols-2 gap-4 mb-8">
+                          {service.features.map((feature, idx) => (
+                            <AnimatedSection key={idx} animation="fade" delay={(index * 200) + 200 + (idx * 100)}>
+                              <div className="flex items-center">
+                                <CheckCircle className="text-primary mr-3 flex-shrink-0" size={18} />
+                                <span className="text-sm">{feature}</span>
+                              </div>
+                            </AnimatedSection>
+                          ))}
+                        </div>
+                        <Link to="/contact">
+                          <Button className="btn-outline-luxury hover-tilt">
+                            Learn More
+                            <ArrowRight className="ml-2" size={18} />
+                          </Button>
+                        </Link>
+                      </AnimatedSection>
                     </div>
-                    <Link to="/contact">
-                      <Button className="btn-outline-luxury">
-                        Learn More
-                        <ArrowRight className="ml-2" size={18} />
-                      </Button>
-                    </Link>
-                  </div>
-                  <div className={index % 2 === 1 ? 'lg:col-start-1' : ''}>
-                    <div className="relative">
-                      <img 
-                        src={service.image} 
-                        alt={service.title}
-                        className="rounded-2xl shadow-luxury w-full hover-lift"
-                      />
-                      <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-gradient-gold rounded-full blur-xl opacity-30"></div>
+                    <div className={index % 2 === 1 ? 'lg:col-start-1' : ''}>
+                      <AnimatedSection animation="slide-right" delay={(index * 200) + 150}>
+                        <div className="relative group hover-tilt">
+                          <img 
+                            src={service.image} 
+                            alt={service.title}
+                            className="rounded-2xl shadow-luxury w-full group-hover:scale-[1.02] transition-transform duration-700"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-gold/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                          <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-gradient-gold rounded-full blur-xl opacity-30 animate-glow"></div>
+                          <div className="absolute -top-2 -left-2 w-16 h-16 bg-gradient-primary rounded-full blur-lg opacity-20 animate-float"></div>
+                        </div>
+                      </AnimatedSection>
                     </div>
                   </div>
-                </div>
+                </AnimatedSection>
               ))}
             </div>
           </div>
         </section>
 
         {/* Process Section */}
-        <section className="py-20 bg-gradient-card">
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-16">
+        <section className="py-20 bg-gradient-card relative overflow-hidden">
+          <div className="absolute inset-0">
+            <div className="absolute top-10 left-10 w-48 h-48 bg-primary/5 rounded-full blur-3xl animate-float"></div>
+            <div className="absolute bottom-10 right-10 w-64 h-64 bg-gold/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }}></div>
+          </div>
+          <div className="container mx-auto px-6 relative z-10">
+            <AnimatedSection animation="fade" className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
                 Our <span className="text-gradient-gold">Process</span>
               </h2>
@@ -193,20 +217,22 @@ const Services = () => {
                 We follow a proven methodology to ensure every project exceeds expectations 
                 and delivers exceptional results.
               </p>
-            </div>
+            </AnimatedSection>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8">
               {processSteps.map((step, index) => (
-                <Card key={index} className="card-glass text-center hover-lift relative">
-                  <CardContent className="p-6">
-                    <div className="text-4xl font-bold text-gradient-primary mb-4">{step.step}</div>
-                    <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
-                    <p className="text-muted-foreground text-sm">{step.description}</p>
-                  </CardContent>
-                  {index < processSteps.length - 1 && (
-                    <div className="hidden lg:block absolute top-1/2 -right-4 w-8 h-0.5 bg-gradient-primary transform -translate-y-1/2"></div>
-                  )}
-                </Card>
+                <AnimatedSection key={index} animation="scale" delay={index * 150}>
+                  <Card className="card-glass text-center hover-tilt relative group">
+                    <CardContent className="p-6">
+                      <div className="text-4xl font-bold text-gradient-primary mb-4 group-hover:scale-110 transition-transform duration-300">{step.step}</div>
+                      <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
+                      <p className="text-muted-foreground text-sm">{step.description}</p>
+                    </CardContent>
+                    {index < processSteps.length - 1 && (
+                      <div className="hidden lg:block absolute top-1/2 -right-4 w-8 h-0.5 bg-gradient-primary transform -translate-y-1/2 animate-pulse"></div>
+                    )}
+                  </Card>
+                </AnimatedSection>
               ))}
             </div>
           </div>

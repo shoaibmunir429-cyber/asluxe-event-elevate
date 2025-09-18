@@ -54,17 +54,15 @@ const Home = () => {
         
         <div className="relative z-10 container mx-auto px-6 text-center">
           <AnimatedSection animation="fade" className="max-w-4xl mx-auto">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6">
+            <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
               <AnimatedSection animation="slide-left" delay={200}>
-                <span className="text-gradient-primary">Transforming</span>
+                <span className="text-gradient-primary block">Transforming</span>
               </AnimatedSection>
-              <br />
               <AnimatedSection animation="fade" delay={400}>
-                <span className="text-foreground">Interiors,</span>
+                <span className="text-foreground block -mt-2">Interiors,</span>
               </AnimatedSection>
-              <br />
               <AnimatedSection animation="slide-right" delay={600}>
-                <span className="text-gradient-gold">Elevating Events</span>
+                <span className="text-gradient-gold block -mt-2">Elevating Events</span>
               </AnimatedSection>
             </h1>
             

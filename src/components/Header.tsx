@@ -37,17 +37,20 @@ export const Header = () => {
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo and Company Name */}
-          <Link to="/" className="flex items-center space-x-4 hover-lift">
-            <img 
-              src={asLogo} 
-              alt="AS Luxe Interiors & Events" 
-              className="h-12 w-auto"
-            />
+          <Link to="/" className="flex items-center space-x-4 hover-lift group">
+            <div className="relative">
+              <img 
+                src={asLogo} 
+                alt="AS Luxe Interiors & Events" 
+                className="h-16 w-auto transition-transform duration-300 group-hover:scale-105 drop-shadow-lg"
+              />
+              <div className="absolute -inset-1 bg-gradient-primary rounded-full blur opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+            </div>
             <div className="hidden sm:block">
-              <h1 className="text-xl font-bold text-gradient-primary">
+              <h1 className="text-2xl font-bold text-gradient-primary leading-tight">
                 AS Luxe Interiors & Events
               </h1>
-              <p className="text-xs text-muted-foreground font-light">
+              <p className="text-sm text-muted-foreground font-light mt-1">
                 Transforming Interiors, Elevating Events
               </p>
             </div>

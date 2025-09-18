@@ -259,6 +259,55 @@ All colors MUST be HSL.
     transition: transform 0.1s ease-out;
   }
   
+  /* Enhanced Morphing Elements */
+  .animate-morphing {
+    animation: morphing 8s ease-in-out infinite;
+  }
+  
+  .animate-pulse3d {
+    animation: pulse3d 3s ease-in-out infinite;
+  }
+  
+  .animate-levitate {
+    animation: levitate 8s ease-in-out infinite;
+  }
+  
+  .animate-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .animate-shimmer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    animation: shimmer 2s infinite;
+  }
+  
+  /* Responsive Glow Effects */
+  .glow-primary {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+  }
+  
+  .glow-gold {
+    box-shadow: 0 0 20px hsl(var(--gold) / 0.3);
+  }
+  
+  /* Enhanced 3D Card Transforms */
+  .card-3d {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+  
+  .card-3d:hover {
+    transform: rotateX(2deg) rotateY(2deg) translateY(-10px) scale(1.02);
+  }
+  
   /* Scroll Animation Classes */
   .animate-on-scroll {
     opacity: 0;

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Heart, Award, Users, Target } from "lucide-react";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import luxuryOffice from "@/assets/luxury-office.jpg";
+import aboutLuxuryLounge from "@/assets/about-luxury-lounge.jpg";
 
 const About = () => {
   useScrollAnimation();
@@ -65,14 +65,16 @@ const About = () => {
                 </Link>
               </AnimatedSection>
               <AnimatedSection animation="slide-right">
-                <div className="relative parallax-element hover-tilt" data-speed="0.1">
+                <div className="relative parallax-element hover-tilt group" data-speed="0.1">
                   <img 
-                    src={luxuryOffice} 
-                    alt="Luxury interior design by AS Luxe"
-                    className="rounded-2xl shadow-luxury w-full"
+                    src={aboutLuxuryLounge} 
+                    alt="Luxury interior design by AS Luxe - sophisticated lounge"
+                    className="rounded-2xl shadow-luxury w-full transition-transform duration-700 group-hover:scale-[1.02]"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-gold/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-primary rounded-full blur-2xl opacity-30 animate-glow"></div>
                   <div className="absolute -top-6 -left-6 w-24 h-24 bg-gradient-gold rounded-full blur-xl opacity-20 animate-float"></div>
+                  <div className="absolute top-4 right-4 w-16 h-16 bg-rose-gold/20 rounded-full blur-lg animate-pulse"></div>
                 </div>
               </AnimatedSection>
             </div>
