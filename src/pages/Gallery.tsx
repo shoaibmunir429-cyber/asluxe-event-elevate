@@ -1,7 +1,10 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Filter } from "lucide-react";
+import { AnimatedSection } from "@/components/AnimatedSection";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import luxuryBar from "@/assets/luxury-bar.jpg";
 import luxuryWedding from "@/assets/luxury-wedding.jpg";
 import luxuryRestaurant from "@/assets/luxury-restaurant.jpg";
@@ -11,6 +14,7 @@ import heroImage from "@/assets/hero-luxury-lobby.jpg";
 
 const Gallery = () => {
   const [activeFilter, setActiveFilter] = useState("all");
+  useScrollAnimation();
 
   const categories = [
     { id: "all", name: "All Projects" },
@@ -106,105 +110,122 @@ const Gallery = () => {
         <title>Portfolio Gallery | AS Luxe Interiors & Events Brisbane</title>
         <meta name="description" content="Explore our stunning portfolio of luxury interior designs and premium event setups. See why AS Luxe is Brisbane's premier design and event planning studio." />
         
-        {/* Hero Section */}
-        <section className="py-20 bg-gradient-hero">
-          <div className="container mx-auto px-6 text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Our <span className="text-gradient-primary">Portfolio</span>
-              <br />
-              <span className="text-gradient-gold">Gallery</span>
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-              Explore our collection of luxury interiors, sophisticated events, and bespoke designs 
-              that showcase our commitment to excellence and attention to detail.
-            </p>
-            <Link to="/contact">
-              <Button className="btn-luxury">
-                Start Your Project
-                <ArrowRight className="ml-2" size={20} />
-              </Button>
-            </Link>
+        {/* Enhanced Hero Section */}
+        <section className="py-20 bg-gradient-hero relative overflow-hidden">
+          <div className="absolute inset-0">
+            <div className="absolute top-20 left-20 w-48 h-48 bg-primary/10 rounded-full blur-3xl animate-float"></div>
+            <div className="absolute bottom-20 right-20 w-64 h-64 bg-gold/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }}></div>
           </div>
-        </section>
-
-        {/* Filter Section */}
-        <section className="py-12 bg-gradient-card">
-          <div className="container mx-auto px-6">
-            <div className="flex flex-wrap justify-center gap-4">
-              <div className="flex items-center text-muted-foreground mr-4">
-                <Filter size={18} className="mr-2" />
-                Filter by:
-              </div>
-              {categories.map((category) => (
-                <Button
-                  key={category.id}
-                  onClick={() => setActiveFilter(category.id)}
-                  className={`${
-                    activeFilter === category.id 
-                      ? "btn-luxury" 
-                      : "btn-outline-luxury"
-                  } transition-all duration-300`}
-                >
-                  {category.name}
+          <div className="container mx-auto px-6 text-center relative z-10">
+            <AnimatedSection animation="fade">
+              <h1 className="text-4xl md:text-6xl font-bold mb-6">
+                Our <span className="text-gradient-primary">Portfolio</span>
+                <br />
+                <span className="text-gradient-gold">Gallery</span>
+              </h1>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+                Explore our collection of luxury interiors, sophisticated events, and bespoke designs 
+                that showcase our commitment to excellence and attention to detail.
+              </p>
+              <Link to="/contact">
+                <Button className="btn-luxury hover-tilt">
+                  Start Your Project
+                  <ArrowRight className="ml-2" size={20} />
                 </Button>
-              ))}
-            </div>
+              </Link>
+            </AnimatedSection>
           </div>
         </section>
 
-        {/* Gallery Grid */}
-        <section className="py-20">
-          <div className="container mx-auto px-6">
+        {/* Enhanced Filter Section */}
+        <section className="py-12 bg-gradient-card relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-gold/5"></div>
+          <div className="container mx-auto px-6 relative z-10">
+            <AnimatedSection animation="fade">
+              <div className="flex flex-wrap justify-center gap-4">
+                <div className="flex items-center text-muted-foreground mr-4">
+                  <Filter size={18} className="mr-2" />
+                  Filter by:
+                </div>
+                {categories.map((category, index) => (
+                  <AnimatedSection key={category.id} animation="scale" delay={index * 100}>
+                    <Button
+                      onClick={() => setActiveFilter(category.id)}
+                      className={`${
+                        activeFilter === category.id 
+                          ? "btn-luxury" 
+                          : "btn-outline-luxury"
+                      } transition-all duration-500 hover-tilt`}
+                    >
+                      {category.name}
+                    </Button>
+                  </AnimatedSection>
+                ))}
+              </div>
+            </AnimatedSection>
+          </div>
+        </section>
+
+        {/* Enhanced Gallery Grid */}
+        <section className="py-20 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent"></div>
+          <div className="container mx-auto px-6 relative z-10">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredProjects.map((project, index) => (
-                <div 
+                <AnimatedSection
                   key={project.id} 
-                  className="card-luxury overflow-hidden group hover-lift"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  animation="scale"
+                  delay={index * 100}
                 >
-                  <div className="relative h-64 overflow-hidden">
-                    <img 
-                      src={project.image} 
-                      alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div className="absolute bottom-4 left-4 right-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 opacity-0 group-hover:opacity-100">
-                      <div className="flex flex-wrap gap-2 mb-2">
-                        {project.tags.map((tag, idx) => (
-                          <span 
-                            key={idx}
-                            className="px-2 py-1 bg-primary/20 text-primary text-xs rounded-full backdrop-blur-sm"
-                          >
-                            {tag}
-                          </span>
-                        ))}
+                  <div className="card-floating overflow-hidden group hover-tilt parallax-element" data-speed="0.05">
+                    <div className="relative h-64 overflow-hidden">
+                      <img 
+                        src={project.image} 
+                        alt={project.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-gold/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      <div className="absolute bottom-4 left-4 right-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 opacity-0 group-hover:opacity-100">
+                        <div className="flex flex-wrap gap-2 mb-2">
+                          {project.tags.map((tag, idx) => (
+                            <span 
+                              key={idx}
+                              className="px-2 py-1 bg-primary/20 text-primary text-xs rounded-full backdrop-blur-sm animate-float"
+                              style={{ animationDelay: `${idx * 200}ms` }}
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold mb-2 text-gradient-primary">{project.title}</h3>
+                      <p className="text-muted-foreground text-sm mb-4">{project.description}</p>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-primary font-medium uppercase tracking-wider">
+                          {categories.find(cat => cat.id === project.category)?.name}
+                        </span>
+                        <Button className="btn-outline-luxury py-2 px-4 text-xs hover-tilt">
+                          View Details
+                        </Button>
                       </div>
                     </div>
                   </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2 text-gradient-primary">{project.title}</h3>
-                    <p className="text-muted-foreground text-sm mb-4">{project.description}</p>
-                    <div className="flex justify-between items-center">
-                      <span className="text-xs text-primary font-medium uppercase tracking-wider">
-                        {categories.find(cat => cat.id === project.category)?.name}
-                      </span>
-                      <Button className="btn-outline-luxury py-2 px-4 text-xs">
-                        View Details
-                      </Button>
-                    </div>
-                  </div>
-                </div>
+                </AnimatedSection>
               ))}
             </div>
 
             {filteredProjects.length === 0 && (
-              <div className="text-center py-16">
-                <p className="text-xl text-muted-foreground">
-                  No projects found in this category. Please try a different filter.
-                </p>
-              </div>
+              <AnimatedSection animation="fade">
+                <div className="text-center py-16">
+                  <p className="text-xl text-muted-foreground">
+                    No projects found in this category. Please try a different filter.
+                  </p>
+                </div>
+              </AnimatedSection>
             )}
           </div>
         </section>

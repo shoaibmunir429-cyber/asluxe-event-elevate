@@ -1,13 +1,17 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Star, Users, Calendar, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { AnimatedSection } from "@/components/AnimatedSection";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import heroImage from "@/assets/hero-luxury-lobby.jpg";
 import luxuryBar from "@/assets/luxury-bar.jpg";
 import luxuryWedding from "@/assets/luxury-wedding.jpg";
 import luxuryRestaurant from "@/assets/luxury-restaurant.jpg";
 
 const Home = () => {
+  useScrollAnimation();
   const services = [
     {
       title: "Interior & Event Planning",
@@ -38,73 +42,89 @@ const Home = () => {
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Enhanced Hero Section with Parallax */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden parallax-container">
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat parallax-element"
+          data-speed="0.5"
           style={{ backgroundImage: `url(${heroImage})` }}
         >
           <div className="absolute inset-0 bg-gradient-hero opacity-80"></div>
         </div>
         
         <div className="relative z-10 container mx-auto px-6 text-center">
-          <div className="max-w-4xl mx-auto animate-fade-in-up">
+          <AnimatedSection animation="fade" className="max-w-4xl mx-auto">
             <h1 className="text-5xl md:text-7xl font-bold mb-6">
-              <span className="text-gradient-primary">Transforming</span>
+              <AnimatedSection animation="slide-left" delay={200}>
+                <span className="text-gradient-primary">Transforming</span>
+              </AnimatedSection>
               <br />
-              <span className="text-foreground">Interiors,</span>
+              <AnimatedSection animation="fade" delay={400}>
+                <span className="text-foreground">Interiors,</span>
+              </AnimatedSection>
               <br />
-              <span className="text-gradient-gold">Elevating Events</span>
+              <AnimatedSection animation="slide-right" delay={600}>
+                <span className="text-gradient-gold">Elevating Events</span>
+              </AnimatedSection>
             </h1>
             
-            <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Luxury styling and event planning studio dedicated to creating bespoke experiences 
-              that reflect your vision and lifestyle.
-            </p>
+            <AnimatedSection animation="fade" delay={800}>
+              <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+                Luxury styling and event planning studio dedicated to creating bespoke experiences 
+                that reflect your vision and lifestyle.
+              </p>
+            </AnimatedSection>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link to="/contact">
-                <Button className="btn-luxury text-lg px-8 py-4">
-                  Start Your Journey
-                  <ArrowRight className="ml-2" size={20} />
-                </Button>
-              </Link>
-              <Link to="/gallery">
-                <Button className="btn-outline-luxury text-lg px-8 py-4">
-                  View Portfolio
-                </Button>
-              </Link>
-            </div>
-          </div>
+            <AnimatedSection animation="scale" delay={1000}>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <Link to="/contact">
+                  <Button className="btn-luxury text-lg px-8 py-4 hover-tilt">
+                    Start Your Journey
+                    <ArrowRight className="ml-2" size={20} />
+                  </Button>
+                </Link>
+                <Link to="/gallery">
+                  <Button className="btn-outline-luxury text-lg px-8 py-4 hover-tilt">
+                    View Portfolio
+                  </Button>
+                </Link>
+              </div>
+            </AnimatedSection>
+          </AnimatedSection>
         </div>
 
-        {/* Floating Elements */}
-        <div className="absolute top-20 left-10 w-20 h-20 bg-primary/20 rounded-full blur-xl animate-float"></div>
-        <div className="absolute bottom-32 right-16 w-32 h-32 bg-gold/20 rounded-full blur-xl animate-float" style={{ animationDelay: "2s" }}></div>
-        <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-rose-gold/30 rounded-full blur-xl animate-float" style={{ animationDelay: "4s" }}></div>
+        {/* Enhanced Floating Elements with 3D Motion */}
+        <div className="absolute top-20 left-10 w-20 h-20 bg-primary/20 rounded-full blur-xl animate-float parallax-element" data-speed="0.3" style={{ animation: 'float 6s ease-in-out infinite, morphing 8s ease-in-out infinite' }}></div>
+        <div className="absolute bottom-32 right-16 w-32 h-32 bg-gold/20 rounded-full blur-xl animate-float parallax-element" data-speed="0.2" style={{ animationDelay: "2s", animation: 'float 6s ease-in-out infinite 2s, morphing 10s ease-in-out infinite 1s' }}></div>
+        <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-rose-gold/30 rounded-full blur-xl animate-float parallax-element" data-speed="0.4" style={{ animationDelay: "4s", animation: 'levitate 8s ease-in-out infinite 4s' }}></div>
+        <div className="absolute top-1/3 right-1/3 w-24 h-24 bg-primary-glow/15 rounded-full blur-2xl animate-float parallax-element" data-speed="0.1" style={{ animation: 'pulse3d 4s ease-in-out infinite' }}></div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-20 bg-gradient-card">
-        <div className="container mx-auto px-6">
+      {/* Enhanced Stats Section */}
+      <section className="py-20 bg-gradient-card relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/5 via-transparent to-gold/5"></div>
+        </div>
+        <div className="container mx-auto px-6 relative z-10">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
-              <div key={index} className="text-center group">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4 group-hover:bg-primary/20 transition-all duration-300">
+              <AnimatedSection key={index} animation="scale" delay={index * 200} className="text-center group">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4 group-hover:bg-primary/20 transition-all duration-500 hover-tilt">
                   <stat.icon className="text-primary" size={32} />
                 </div>
                 <div className="text-3xl font-bold text-gradient-primary mb-2">{stat.number}</div>
                 <div className="text-muted-foreground">{stat.label}</div>
-              </div>
+              </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Services Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
+      {/* Enhanced Services Section */}
+      <section className="py-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent"></div>
+        <div className="container mx-auto px-6 relative z-10">
+          <AnimatedSection animation="fade" className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               Our <span className="text-gradient-primary">Premium</span> Services
             </h2>
@@ -112,54 +132,61 @@ const Home = () => {
               From intimate gatherings to grand celebrations, we deliver bespoke experiences 
               that exceed expectations.
             </p>
-          </div>
+          </AnimatedSection>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
-              <Card key={index} className="card-luxury group hover-lift overflow-hidden">
-                <div className="relative h-64 overflow-hidden rounded-t-xl">
-                  <img 
-                    src={service.image} 
-                    alt={service.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                </div>
-                <CardContent className="p-6">
-                  <h3 className="text-2xl font-bold mb-3 text-gradient-primary">{service.title}</h3>
-                  <p className="text-muted-foreground mb-4">{service.description}</p>
-                  <ul className="space-y-2">
-                    {service.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center text-sm">
-                        <Star className="text-primary mr-2" size={16} />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
+              <AnimatedSection key={index} animation="scale" delay={index * 150}>
+                <Card className="card-floating group hover-tilt overflow-hidden">
+                  <div className="relative h-64 overflow-hidden rounded-t-xl">
+                    <img 
+                      src={service.image} 
+                      alt={service.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-gold/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  </div>
+                  <CardContent className="p-6 relative">
+                    <h3 className="text-2xl font-bold mb-3 text-gradient-primary">{service.title}</h3>
+                    <p className="text-muted-foreground mb-4">{service.description}</p>
+                    <ul className="space-y-2">
+                      {service.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-center text-sm">
+                          <Star className="text-primary mr-2" size={16} />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              </AnimatedSection>
             ))}
           </div>
 
-          <div className="text-center mt-12">
+          <AnimatedSection animation="fade" delay={600} className="text-center mt-12">
             <Link to="/services">
-              <Button className="btn-gold text-lg px-8 py-4">
+              <Button className="btn-gold text-lg px-8 py-4 hover-tilt">
                 Explore All Services
                 <ArrowRight className="ml-2" size={20} />
               </Button>
             </Link>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
-      <section className="py-20 bg-gradient-card">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
+      {/* Enhanced Why Choose Us Section */}
+      <section className="py-20 bg-gradient-card relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-10 left-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-float"></div>
+          <div className="absolute bottom-10 right-10 w-80 h-80 bg-gold/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '3s' }}></div>
+        </div>
+        <div className="container mx-auto px-6 relative z-10">
+          <AnimatedSection animation="fade" className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               Why Choose <span className="text-gradient-gold">AS Luxe</span>?
             </h2>
-          </div>
+          </AnimatedSection>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
@@ -180,22 +207,25 @@ const Home = () => {
                 description: "Your satisfaction is our priority, with personalized service every step of the way."
               }
             ].map((reason, index) => (
-              <div key={index} className="card-glass text-center hover-lift">
-                <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-primary-foreground font-bold text-xl">{index + 1}</span>
+              <AnimatedSection key={index} animation="slide-left" delay={index * 200}>
+                <div className="card-glass text-center hover-tilt group">
+                  <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300" style={{ animation: 'pulse3d 3s ease-in-out infinite' }}>
+                    <span className="text-primary-foreground font-bold text-xl">{index + 1}</span>
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3 text-gradient-primary">{reason.title}</h3>
+                  <p className="text-muted-foreground">{reason.description}</p>
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-gradient-primary">{reason.title}</h3>
-                <p className="text-muted-foreground">{reason.description}</p>
-              </div>
+              </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-6 text-center">
-          <div className="max-w-3xl mx-auto card-luxury">
+      {/* Enhanced CTA Section */}
+      <section className="py-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-gold/10"></div>
+        <div className="container mx-auto px-6 text-center relative z-10">
+          <AnimatedSection animation="scale" className="max-w-3xl mx-auto card-floating">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               Ready to Transform Your <span className="text-gradient-primary">Vision</span>?
             </h2>
@@ -205,19 +235,24 @@ const Home = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/contact">
-                <Button className="btn-luxury text-lg px-8 py-4">
+                <Button className="btn-luxury text-lg px-8 py-4 hover-tilt">
                   Get Your Free Quote
                   <ArrowRight className="ml-2" size={20} />
                 </Button>
               </Link>
               <Link to="/gallery">
-                <Button className="btn-outline-luxury text-lg px-8 py-4">
+                <Button className="btn-outline-luxury text-lg px-8 py-4 hover-tilt">
                   View Our Work
                 </Button>
               </Link>
             </div>
-          </div>
+          </AnimatedSection>
         </div>
+        
+        {/* Floating decoration elements */}
+        <div className="absolute top-1/4 left-1/4 w-4 h-4 bg-primary/30 rounded-full animate-float parallax-element" data-speed="0.2"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-6 h-6 bg-gold/30 rounded-full animate-float parallax-element" data-speed="0.3" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-1/2 right-1/6 w-3 h-3 bg-rose-gold/40 rounded-full animate-float parallax-element" data-speed="0.1" style={{ animationDelay: '4s' }}></div>
       </section>
     </>
   );

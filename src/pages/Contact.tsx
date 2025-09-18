@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -6,10 +7,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { MapPin, Phone, Mail, Instagram, Clock, Calendar, Upload } from "lucide-react";
+import { AnimatedSection } from "@/components/AnimatedSection";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { FAQ } from "@/components/FAQ";
 import luxuryOffice from "@/assets/luxury-office.jpg";
 
 const Contact = () => {
   const { toast } = useToast();
+  useScrollAnimation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -362,50 +367,37 @@ const Contact = () => {
           </div>
         </section>
 
-        {/* FAQ Section */}
-        <section className="py-20 bg-gradient-card">
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Frequently Asked <span className="text-gradient-primary">Questions</span>
-              </h2>
-            </div>
-
-            <div className="max-w-4xl mx-auto">
-              <div className="grid md:grid-cols-2 gap-8">
-                {[
-                  {
-                    question: "How far in advance should I contact you?",
-                    answer: "For major events and renovations, we recommend 3-6 months advance notice. However, we can accommodate shorter timelines depending on availability and project scope."
-                  },
-                  {
-                    question: "Do you work outside of Brisbane?",
-                    answer: "Yes! We serve clients throughout Australia and offer destination event planning services internationally. Travel costs are factored into project quotes."
-                  },
-                  {
-                    question: "What's included in your consultation?",
-                    answer: "Our free consultation includes project assessment, initial concept discussion, timeline overview, and a preliminary budget range. No obligation required."
-                  },
-                  {
-                    question: "Do you handle permits and vendor coordination?",
-                    answer: "Absolutely. We manage all aspects of project coordination including permits, vendor relationships, timeline management, and on-site supervision."
-                  }
-                ].map((faq, index) => (
-                  <Card key={index} className="card-luxury">
-                    <CardContent className="p-6">
-                      <h3 className="text-lg font-semibold mb-3 text-gradient-primary">
-                        {faq.question}
-                      </h3>
-                      <p className="text-muted-foreground text-sm">
-                        {faq.answer}
-                      </p>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* FAQ Section with Enhanced Component */}
+        <FAQ 
+          title="Frequently Asked Questions"
+          description="Find answers to common questions about our services and process"
+          items={[
+            {
+              question: "How far in advance should I contact you?",
+              answer: "For major events and renovations, we recommend 3-6 months advance notice. However, we can accommodate shorter timelines depending on availability and project scope."
+            },
+            {
+              question: "Do you work outside of Brisbane?",
+              answer: "Yes! We serve clients throughout Australia and offer destination event planning services internationally. Travel costs are factored into project quotes."
+            },
+            {
+              question: "What's included in your consultation?",
+              answer: "Our free consultation includes project assessment, initial concept discussion, timeline overview, and a preliminary budget range. No obligation required."
+            },
+            {
+              question: "Do you handle permits and vendor coordination?",
+              answer: "Absolutely. We manage all aspects of project coordination including permits, vendor relationships, timeline management, and on-site supervision."
+            },
+            {
+              question: "What is your design process like?",
+              answer: "Our process begins with understanding your vision, followed by concept development, detailed planning, material selection, and finally flawless execution with ongoing support."
+            },
+            {
+              question: "Do you offer payment plans?",
+              answer: "Yes, we offer flexible payment schedules tailored to your project timeline. Payment terms are discussed during the consultation phase and outlined in our agreements."
+            }
+          ]}
+        />
       </div>
     </>
   );
